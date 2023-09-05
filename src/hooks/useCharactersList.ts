@@ -1,19 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { IPeople } from "@/interfaces/IPeople";
+import { useSearch } from "@/context/SearchContext";
 
 export default function useCharactersList(people: IPeople[]) {
-    const [asc, setAsc] = useState(false);
-
     const [data, setData] = useState<IPeople[]>(people);
 
-    const [search, setSearch] = useState("");
-
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearch(e.target.value);
-    };
-
-    const toggleAsc = () => { setAsc(!asc); }
+    const { search, handleSearch, asc, toggleAsc } = useSearch();
 
     const filterPeople = useCallback(() => {
         const filter = people.filter((p: IPeople) => {

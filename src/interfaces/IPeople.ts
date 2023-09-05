@@ -6,6 +6,7 @@ export interface IPeople {
     filmConnection: {
         films: {
             title: string;
+            id: string;
         }[];
     }
     birthYear: string;
