@@ -1,3 +1,5 @@
+const path = require('path')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     webpack: (config, _options) => {
@@ -6,6 +8,11 @@ const nextConfig = {
             exclude: /node_modules/,
             loader: "graphql-tag/loader"
         });
+
+        config.resolve.alias = {
+            ...config.resolve.alias,
+            '@': path.resolve(__dirname, 'src'),
+        }
 
         return config;
     },
