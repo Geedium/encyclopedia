@@ -2,15 +2,30 @@
 
 import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 
-import { Characters } from '../queries/Starwars.gql';
+// VERCEL doesn't load this
+// import { Characters } from '../queries/Starwars.gql';
 
 import useCharactersList from "../hooks/useCharactersList";
 import { IPeople } from "../interfaces/IPeople";
 
 import Card from "../components/Card";
 import Container from "../components/Container";
+import gql from "graphql-tag";
 
 export const dynamic = "force-dynamic";
+
+
+const Characters = gql(`
+  query {
+    allPeople {
+    people {
+      name
+      birthYear
+      id
+    }
+  }
+  }
+`);
 
 interface Response {
   allPeople: {

@@ -7,7 +7,55 @@ import type { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 
 import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 
-import { getPerson } from '../../queries/Starwars.gql';
+import gql from 'graphql-tag';
+// VERCEL doesn't load this
+// import { getPerson } from '../../queries/Starwars.gql';
+
+const getPerson = gql(`
+    query($personId: ID) {
+        person(id: $personId) {
+          id
+          name
+          gender
+          hairColor
+          mass
+          skinColor
+          birthYear
+          species {
+            name
+          }
+          starshipConnection {
+            starships {
+              name
+            }
+          }
+          vehicleConnection {
+            vehicles {
+              name
+            }
+          }
+          filmConnection {
+            films {
+              id
+              title
+              director
+              episodeID
+              openingCrawl
+              planetConnection {
+                planets {
+                  name
+                }
+              }
+              producers
+              releaseDate
+            }
+          }
+          homeworld {
+            name
+          }
+        }
+      }
+`)
 
 import Container from "@/components/Container";
 import Divider from '@/components/Divider';
