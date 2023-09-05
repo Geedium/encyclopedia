@@ -1,0 +1,39 @@
+query Characters {
+  allPeople {
+    people {
+      name
+      species {
+        name
+      }
+      filmConnection {
+        films {
+          title
+        }
+      }
+      birthYear
+      homeworld {
+        name
+      }
+      id
+    }
+  }
+}
+
+query getPerson($personId: ID) {
+  person(id: $personId) {
+    name
+    species {
+      name
+    }
+    filmConnection {
+      films {
+        title
+      }
+    }
+    birthYear
+    homeworld {
+      name
+    }
+    id
+  }
+}
