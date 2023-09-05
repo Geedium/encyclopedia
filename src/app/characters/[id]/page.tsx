@@ -7,14 +7,10 @@ import type { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 
 import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 
-
-import type { IPeople } from "@/interfaces/IPeople";
-
-import { getPerson } from '@/queries/Starwars.gql';
+import { getPerson } from '../../queries/Starwars.gql';
 
 import Container from "@/components/Container";
 import Divider from '@/components/Divider';
-
 
 export const dynamic = "force-dynamic";
 

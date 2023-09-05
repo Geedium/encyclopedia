@@ -2,13 +2,13 @@
 
 import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 
-import { Characters } from '@/queries/Starwars.gql';
+import { Characters } from '../queries/Starwars.gql';
 
-import useCharactersList from "@/hooks/useCharactersList";
-import { IPeople } from "@/interfaces/IPeople";
+import useCharactersList from "../hooks/useCharactersList";
+import { IPeople } from "../interfaces/IPeople";
 
-import Card from "@/components/Card";
-import Container from "@/components/Container";
+import Card from "../components/Card";
+import Container from "../components/Container";
 
 export const dynamic = "force-dynamic";
 
