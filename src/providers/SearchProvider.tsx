@@ -23,11 +23,13 @@ export default function SearchProvider({ children }: Props) {
         setHasSearch(pathname == "/" ? true : false);
     }, [pathname])
 
+    const clearSearch = () => { setSearch(""); }
+
     const toggleAsc = () => { setAsc(!asc); }
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
     };
 
-    return <SearchContext.Provider value={{ search, asc, hasSearch, toggleAsc, handleSearch }}>{children}</SearchContext.Provider>
+    return <SearchContext.Provider value={{ search, asc, hasSearch, clearSearch, toggleAsc, handleSearch }}>{children}</SearchContext.Provider>
 }

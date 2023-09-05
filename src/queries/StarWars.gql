@@ -2,18 +2,7 @@ query Characters {
   allPeople {
     people {
       name
-      species {
-        name
-      }
-      filmConnection {
-        films {
-          title
-        }
-      }
       birthYear
-      homeworld {
-        name
-      }
       id
     }
   }
@@ -21,20 +10,44 @@ query Characters {
 
 query getPerson($personId: ID) {
   person(id: $personId) {
+    id
     name
+    gender
+    hairColor
+    mass
+    skinColor
+    birthYear
     species {
       name
+    }
+    starshipConnection {
+      starships {
+        name
+      }
+    }
+    vehicleConnection {
+      vehicles {
+        name
+      }
     }
     filmConnection {
       films {
         id
         title
+        director
+        episodeID
+        openingCrawl
+        planetConnection {
+          planets {
+            name
+          }
+        }
+        producers
+        releaseDate
       }
     }
-    birthYear
     homeworld {
       name
     }
-    id
   }
 }

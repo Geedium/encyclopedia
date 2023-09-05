@@ -7,6 +7,7 @@ interface Context {
     hasSearch?: boolean;
     asc?: boolean;
     toggleAsc: () => void;
+    clearSearch: () => void;
     handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -14,6 +15,7 @@ export const SearchContext = createContext({
     handleSearch: () => { },
     hasSearch: false,
     toggleAsc: () => { },
+    clearSearch: () => { },
     asc: false,
     search: "",
 } as Context);
