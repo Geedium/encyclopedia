@@ -6,6 +6,9 @@ import { getPerson } from '@/queries/Starwars.gql';
 
 import Link from 'next/link';
 
+import { notFound } from 'next/navigation';
+import { AppBar } from "@/components/AppBar";
+
 export const dynamic = "force-dynamic";
 
 interface People {
@@ -28,14 +31,25 @@ interface People {
 export default function CharacterDetails({ params }: any) {
     const { id } = params;
 
-    const decodedID = decodeURIComponent(id);
+    if (!id) {
+        notFound();
+    }
 
     const { data, error } = useSuspenseQuery<People>(getPerson, {
-        variables: { personId: decodedID },
+        variables: { personId: decodeURIComponent(id) },
     });
 
     return <div>
         <Link href="/">Homepage</Link>
-        <div>{JSON.stringify(data)}</div>
+        <div>{error ? (
+            <p>Ouch.</p>
+        ) : !data ? (
+            <p>Error occuried.</p>
+        ) : (
+            <div>
+                <AppBar></AppBar>
+                {JSON.stringify(data)}
+            </div>
+        )}</div>
     </div>
 }

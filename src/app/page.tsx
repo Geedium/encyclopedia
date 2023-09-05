@@ -4,70 +4,44 @@ import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 
 import { Characters } from '@/queries/Starwars.gql';
 
-import Link from 'next/link';
-import { useEffect, useState } from "react";
+import useCharactersList from "@/hooks/useCharactersList";
+import { IPeople } from "@/interfaces/IPeople";
+
+import Card from "@/components/Card";
+
+import { AppBar } from "@/components/AppBar";
 
 export const dynamic = "force-dynamic";
 
-interface People {
-  name: string;
-  species: {
-    name: string;
-  } | null;
-  filmConnection: {
-    films: {
-      title: string;
-    }[];
-  }
-  birthYear: string;
-  homeworld: {
-    title: string;
-  };
-  id: string;
-}
-
 interface Response {
   allPeople: {
-    people: People[]
+    people: IPeople[]
   }
 }
 
 export default function Home() {
-  const { data, error } = useSuspenseQuery<Response>(Characters);
+  const { data: { allPeople: { people } }, error } = useSuspenseQuery<Response>(Characters);
 
-  const [people, setPeople] = useState<People[]>(data.allPeople.people);
-
-  const [search, setSearch] = useState("");
-
-  useEffect(() => {
-    if (!search) {
-      setPeople(data.allPeople.people);
-      return;
-    }
-
-    setPeople(data.allPeople.people.filter((p: People) => {
-      return p.name.toLowerCase().includes(search.toLowerCase())
-    }));
-  }, [data.allPeople.people, search]);
-
-  const handleInput = (e: any) => {
-    const lookup = e.target.value;
-    setSearch(lookup);
-  };
+  const { data, asc, search, handleSearch, toggleAsc } = useCharactersList(people);
 
   return (
     <div>
-      <p>Search...</p>
-      <input className="ml-3 text-black" value={search} onChange={handleInput} type="text" />
+      <AppBar>
+        <input placeholder="Search..." className="search" value={search} onChange={handleSearch} type="text" />
+        <button className="mx-4" onClick={() => toggleAsc()}>{asc ? "A-Z" : "Z-A"}</button>
+      </AppBar>
+      <div className="h-16 mb-8"></div>
       {
         error ? (
           <p>Ouch.</p>
         ) : !data ? (
           <p>Loading...</p>
         ) : data ? (
-          <div>{people.map((p: People) => {
-            return <Link className="block p-2 bg-slate-50 border border-r-2 text-black" href={`characters/${encodeURIComponent(p.id)}`} key={p.id}>{p.name}</Link>
-          })}</div>
+          <div className="container mx-auto">
+            <div className="grid md:grid-cols-4 grid-cols-1 gap-4">{data.map(p => {
+              return <Card name={p.name} key={p.id} id={p.id} />
+            })}</div>
+          </div>
         ) : null
       }
     </div>
