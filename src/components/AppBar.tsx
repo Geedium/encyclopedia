@@ -31,7 +31,7 @@ export function AppBar() {
                     <div className="md:flex flex-row hidden">
                         <button className="mx-4" onClick={() => clearSearch()}>🧻</button>
                         <input value={search} onChange={handleSearch} placeholder="Search..." className="search" type="text" />
-                        <button className="mx-4" onClick={() => toggleAsc()}>{asc ? "A-Z" : "Z-A"}</button>
+                        <button className="mx-4 w-24" onClick={() => toggleAsc()}>{asc ? "A-Z" : "Z-A"}</button>
                     </div>
                 )
             }
@@ -42,7 +42,7 @@ export function AppBar() {
                     <div className="flex flex-row mt-4 mb-4">
                         <button className="mx-4" onClick={() => clearSearch()}>🧻</button>
                         <input value={search} onChange={handleSearch} placeholder="Search..." className="search" type="text" />
-                        <button className="mx-4" onClick={() => toggleAsc()}>{asc ? "A-Z" : "Z-A"}</button>
+                        <button className="mx-4 w-24" onClick={() => toggleAsc()}>{asc ? "A-Z" : "Z-A"}</button>
                     </div>
                     <Link className="px-4" href="/">Home</Link>
                 </div>
